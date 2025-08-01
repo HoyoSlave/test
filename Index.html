@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CvuiOFC – Kernel & Module Dev</title>
+  <style>
+    :root{
+      --bg:#0a0a0a;
+      --bg-glass:rgba(22,27,34,0.45);
+      --accent:#ff3860;          /* merah ruby tetap */
+      --accent-glow:#ff1744;
+      --text:#e6e6e6;
+      --muted:#8b949e;
+      --font:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:var(--font)}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);overflow-x:hidden}
+
+    /* HERO parallax dengan overlay ruby */
+    header{
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      position:relative;
+      background:url('pp.jpg') center/cover fixed;
+    }
+    header::before{
+      content:'';
+      position:absolute;inset:0;
+      background:rgba(0,0,0,.65);
+      backdrop-filter:blur(6px);
+    }
+    header>*{position:relative;z-index:2}
+    .avatar{
+      width:160px;height:160px;
+      border-radius:50%;
+      border:4px solid var(--accent);
+      box-shadow:0 0 20px var(--accent-glow);
+      object-fit:cover;
+      transition:.4s;
+    }
+    .avatar:hover{transform:scale(1.1);box-shadow:0 0 30px var(--accent-glow)}
+    .hero-text h1{font-size:2.8rem;letter-spacing:2px;margin-top:18px}
+    .hero-text p{color:var(--muted);font-size:1.2rem;margin:8px 0 25px}
+    .btn{
+      padding:12px 28px;
+      background:transparent;
+      border:2px solid var(--accent);
+      color:var(--accent);
+      border-radius:50px;
+      font-weight:600;
+      text-decoration:none;
+      transition:.3s;
+      position:relative;
+      overflow:hidden;
+      z-index:1;
+    }
+    .btn::before{
+      content:'';
+      position:absolute;
+      top:50%;left:50%;
+      width:0;height:0;
+      background:var(--accent);
+      border-radius:50%;
+      transition:.5s;
+      transform:translate(-50%,-50%);
+      z-index:-1;
+    }
+    .btn:hover{color:#000}
+    .btn:hover::before{width:300px;height:300px}
+
+    /* NAVBAR */
+    nav{
+      position:fixed;top:0;left:0;right:0;
+      background:var(--bg-glass);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      padding:12px 0;
+      z-index:100;
+      transition:transform .4s;
+    }
+    nav ul{display:flex;justify-content:center;gap:30px;list-style:none}
+    nav a{color:var(--text);text-decoration:none;font-weight:600;position:relative}
+    nav a::after{
+      content:'';
+      position:absolute;left:0;bottom:-4px;
+      width:0;height:2px;
+      background:var(--accent);
+      transition:.3s;
+    }
+    nav a:hover::after{width:100%}
+
+    /* SECTIONS */
+    section{max-width:1000px;margin:100px auto;padding:0 20px}
+    h2{font-size:2rem;margin-bottom:35px;text-align:center;color:var(--accent)}
+    .projects{
+      display:grid;
+      gap:30px;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    }
+    .card{
+      background:var(--bg-glass);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:25px;
+      transition:.4s;
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:'';
+      position:absolute;
+      top:0;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-glow));
+      transition:.4s;
+      transform:scaleX(0);
+      transform-origin:left;
+    }
+    .card:hover::before{transform:scaleX(1)}
+    .card:hover{transform:translateY(-8px);box-shadow:0 0 25px rgba(255,56,96,.25)}
+    .card h3{font-size:1.4rem;margin-bottom:8px}
+    .card a{color:var(--accent);text-decoration:none;font-weight:600}
+    .socials{
+      display:flex;justify-content:center;gap:20px;flex-wrap:wrap;
+    }
+    .socials a{
+      padding:10px 24px;
+      background:var(--bg-glass);
+      border:1px solid var(--accent);
+      border-radius:50px;
+      color:var(--accent);
+      text-decoration:none;
+      transition:.3s;
+    }
+    .socials a:hover{background:var(--accent);color:#000;box-shadow:0 0 15px var(--accent-glow)}
+
+    /* RESPONSIVE */
+    @media(max-width:600px){
+      .hero-text h1{font-size:2.2rem}
+      nav ul{gap:20px}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HERO -->
+  <header>
+    <img class="avatar" src="pp.jpg" alt="profile"/>
+    <div class="hero-text">
+      <h1>CvuiOFC</h1>
+      <p>Kernel / Module / GSI ROM Developer</p>
+      <a class="btn" href="#projects">Explore Works</a>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <ul>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+  </nav>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2>Featured Projects</h2>
+    <div class="projects">
+      <div class="card">
+        <h3>HONOR PROJECT</h3>
+        <p>Dynamic GPU frequency scaling based on temperature with web-UI configuration.</p>
+        <a href="https://t.me/SuShOpSo/25" target="_blank">View post →</a>
+      </div>
+
+      <div class="card">
+        <h3>SONHITSU PROJECT</h3>
+        <p>Combined Wi-Fi enhancement module with automatic Qualcomm / MediaTek chip detection.</p>
+        <a href="https://t.me/SuShOpSo/36" target="_blank">View post →</a>
+      </div>
+
+      <div class="card">
+        <h3>SCOERCH PRIORITY</h3>
+        <p>AI-based kernel optimizer for gaming performance and smart thermal management.</p>
+        <a href="https://t.me/SuShOpSo/33" target="_blank">View post →</a>
+      </div>
+
+      <div class="card">
+        <h3>SUZUME PROJECT</h3>
+        <p>Performance tweaks for Genshin Impact & Unreal Engine on low-end Android devices.</p>
+        <a href="https://t.me/SuShOpSo/27" target="_blank">View post →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONNECT -->
+  <section id="connect">
+    <h2>Connect</h2>
+    <div class="socials">
+      <a href="https://t.me/SuShOpSo" target="_blank">Telegram Channel</a>
+      <a href="https://www.tiktok.com/@cvui.os" target="_blank">TikTok</a>
+      <a href="#" title="Coming soon">GitHub (soon)</a>
+    </div>
+  </section>
+</body>
+</html>
